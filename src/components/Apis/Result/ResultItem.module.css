@@ -1,0 +1,43 @@
+.result-items__item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid #C8C8C8;
+  min-height: 61px;
+  padding-top: 3px;
+  padding-bottom: 4px;
+}
+
+.result-items__item-content {
+  display: inline-block;
+  text-align: center;
+  position: relative;
+  font-size: 16px;
+  line-height: 22px;
+  font-family: "OpenSans", sans-serif;
+  font-weight: 400;
+  color: #0048AB;
+}
+
+.result-items__item-content > b {
+  display: inline;
+  font: inherit;
+  color: inherit;
+  font-weight: normal;
+}
+
+.result-items__item-content > span {
+  display: inline;
+  font: inherit;
+  color: #00A98B;
+}
+
+.apis-result_error .result-items__item-content > span {
+  color: #D8336E;
+}
+
+.result-items__item-content .question {
+  top: -10px;
+}

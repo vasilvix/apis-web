@@ -1,13 +1,164 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+header,
+section,
+footer {
+  display: flex;
+  width: 100%;
+}
+
+img {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+}
+
+body {
+  display: block;
+  background: linear-gradient(117.42deg, #004597 36.48%, #0083fc 67.74%);
+  font-family: 'Gilroy-Regular', sans-serif;
+  font-size: 18px;
+  color: #000;
+  margin: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  min-height: 100vh;
+  text-align: left;
+}
+
+p {
+  margin: 0;
+  display: block;
+  font-family: 'Gilroy-Regular', sans-serif;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000;
+}
+
+span {
+  display: inline-block;
+  font-size: 18px;
+  line-height: 21px;
+  font-family: 'Gilroy-Regular', sans-serif;
+  font: inherit;
+  color: inherit;
+}
+
+ul {
+  list-style-type: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: 'OpenSans', sans-serif;
+  font-weight: 800;
+  color: #0048ab;
+}
+
+h1 {
+  font-size: 40px;
+  line-height: 54px;
+}
+
+h2 {
+  font-size: 30px;
+  line-height: 40px;
+}
+
+h3 {
+  font-size: 25px;
+  line-height: 35px;
+}
+
+h4 {
+  font-size: 18px;
+  line-height: 22px;
+  font-family: 'Gilroy-Bold', sans-serif;
+  font-weight: normal;
+}
+
+input {
+  outline: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  box-shadow: none !important;
+  font-family: 'Inter', sans-serif;
+  font-weight: normal;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+input::placeholder {
+  font-family: 'Inter', sans-serif;
+  font-weight: normal;
+  opacity: 1 !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input::-moz-placeholder {
+  background: transparent !important;
+  padding-left: 0px !important;
+}
+
+@media (max-width: 575px) {
+  body {
+    background: linear-gradient(117.42deg, #004597 36.48%, #0083fc 67.74%);
+  }
+
+  span {
+    font-size: 15px;
+    line-height: 18px;
+  }
+
+  h1 {
+    font-size: 25px;
+    line-height: 34px;
+  }
+
+  h4 {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+header {
+  display: flex;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  padding-top: 64px;
+}
+
+@media (max-width: 575px) {
+  header {
+    padding-top: 35px;
+  }
 }
