@@ -1,52 +1,84 @@
+import { useState } from 'react';
+
+import MoreArrow from '../UI/MoreArrow';
 import classes from './ApisResult.module.css';
-import { ReactComponent as MoreArrowImage } from '../../assets/images/more-arrow.svg';
 
-import ResultItem from './Result/ResultItem';
+import ResultItem from './ResultItem';
 
-const ApisResult = () => {
+const getMsJsonDate = (date) => {
+  const re = /-?\d+/;
+  const m = re.exec(date);
+  return parseInt(m[0], 10);
+}
+
+const ApisResult = (props) => {
+
+  const [isShowMore, setIsShowMore] = useState(false);
+
+  const showMoreHandler = () => {
+    setIsShowMore(!isShowMore);
+  }
+
+  const isBase = props.result.StType === 0;
+  const connectionQuality = props.result.StStaus === 0
+    ? 'нет задержки'
+    : 'Задержка передачи данных';
+  const serverStatus = `подключен ${props.result.TcpIPName}`;
+  const mode = isBase
+    ? 'База'
+    : `Ровер (подключен к базе ${props.result.MobileRelatedRefID}`
+  const connectionDate = new Date(getMsJsonDate(props.result.ConTime));
+  const connectionDateLocal = connectionDate.toLocaleDateString();
+  const connectionTimeLocal = connectionDate.toLocaleTimeString();
+  const connectionDateTimeLocal = `${connectionDateLocal} ${connectionTimeLocal}`;
+  const received = `${(isBase ? props.result.RovBytes : props.result.SendBytes).toFixed(2)} кБ`;
+  const sent = `${(isBase ? props.result.SendBytes : props.result.RovBytes).toFixed(2)} кБ`;
+  const correctionFormatAdvice = {
+    text: props.result.Codetype === 'CMR'
+      ? 'Только GPS и ГЛОНАСС'
+      : 'GPS, ГЛОНАСС, Galileo, Beidou'
+  };
+
+  const moreInfo = (
+    <div className={classes['result-items']}>
+      <ResultItem
+        label={'Получено'}
+        content={received}
+      />
+      <ResultItem
+        label={'Отправлено'}
+        content={sent}
+      />
+      <ResultItem
+        label={'Формат поправок'}
+        content={props.result.Codetype}
+        advice={correctionFormatAdvice}
+      />
+      <ResultItem
+        label={'Время подключения'}
+        content={connectionDateTimeLocal}
+      />
+    </div>
+  );
+
   return (
     <div className={classes['apis-result']}>
       <div className={classes['result-items']}>
         <ResultItem
-          label={"Качество подключения"}
-          content={"нет задержки"}
+          label={'Качество подключения'}
+          content={connectionQuality}
         />
         <ResultItem
-          label={"Статус сервера"}
-          content={"подключен 193.128.131.10"}
+          label={'Статус сервера'}
+          content={serverStatus}
         />
         <ResultItem
-          label={"Режим"}
-          content={"Ровер. Подключен к базе 951126"}
+          label={'Режим'}
+          content={mode}
         />
       </div>
-      <div className={classes.more}>
-        <span>
-          Больше информации
-        </span>
-        <div className={classes['more__arrow']}>
-          <MoreArrowImage />
-        </div>
-      </div>
-      <div className={classes['result-items']}>
-        <ResultItem
-          label={"Получено"}
-          content={"73,567 кБ"}
-        />
-        <ResultItem
-          label={"Отправлено"}
-          content={"5,596 кБ"}
-        />
-        <ResultItem
-          label={"Формат поправок"}
-          content={"CMR"}
-          advice={{ text: "Только GPS и ГЛОНАСС" }}
-        />
-        <ResultItem
-          label={"Время"}
-          content={"11 марта в 11:05:05"}
-        />
-      </div>
+      <MoreArrow isActive={isShowMore} showMore={showMoreHandler} />
+      {isShowMore && moreInfo}
     </div>
   );
 }

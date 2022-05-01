@@ -68,16 +68,3 @@
 .contacts__item.contacts__item_tg span {
   padding-left: 2px;
 }
-
-.container {
-  width: 700px;
-  max-width: calc(100% - 40px);
-  margin-left: auto;
-  margin-right: auto;
-  display: inline-block;
-}
-
-.row {
-  width: 100%;
-  display: flex;
-}

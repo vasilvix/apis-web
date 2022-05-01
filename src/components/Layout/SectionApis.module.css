@@ -4,19 +4,6 @@
   overflow: hidden;
 }
 
-.container {
-  width: 700px;
-  max-width: calc(100% - 40px);
-  margin-left: auto;
-  margin-right: auto;
-  display: inline-block;
-}
-
-.row {
-  width: 100%;
-  display: flex;
-}
-
 .apis {
   display: block;
   width: 100%;

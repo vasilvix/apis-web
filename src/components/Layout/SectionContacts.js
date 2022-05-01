@@ -1,10 +1,12 @@
+import Container from '../UI/Container';
+import Row from '../UI/Row';
 import classes from './SectionContacts.module.css';
 
 const SectionContacts = () => {
   return (
     <section className={classes['section-contacts']} id="section-contacts">
-      <div className={classes.container}>
-        <div className={classes.row}>
+      <Container>
+        <Row>
           <div className={classes.contacts}>
             <a href="download/PodklyucheniyeBazyIRoveraPoAPISNaLandstar7.docx" download className={classes['contacts__item']}>
               <span>
@@ -23,8 +25,8 @@ const SectionContacts = () => {
               </span>
             </a>
           </div>
-        </div>
-      </div>
+        </Row>
+      </Container>
     </section>
   );
 }

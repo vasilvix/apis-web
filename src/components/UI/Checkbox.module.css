@@ -1,0 +1,75 @@
+.checkbox-wrap {
+  display: inline-flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 28px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.checkbox-wrap.hidden {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.checkbox-wrap span {
+  display: inline-block;
+  font-size: 18px;
+  line-height: 21px;
+  padding-bottom: 1px;
+  color: #969696;
+}
+
+.checkbox-wrap span span {
+  display: none;
+  font: inherit;
+  color: inherit;
+}
+
+.checkbox-wrap span span:nth-child(1) {
+  display: inline;
+}
+
+.checkbox-btn {
+  display: inline-block;
+  position: relative;
+  width: 25px;
+  height: 25px;
+  margin-left: 9px;
+  border: 1px solid #969696;
+  border-radius: 5px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+.checkbox-btn span {
+  display: none;
+}
+
+.checkbox-btn::before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 52%;
+  width: 80%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% auto;
+  background-image: url(../../assets/images/checkbox-arrow.svg);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.checkbox-btn.active {
+  border-color: #0048ab;
+  background-color: #0048ab;
+}
+
+.checkbox-btn.active::before {
+  opacity: 1;
+}

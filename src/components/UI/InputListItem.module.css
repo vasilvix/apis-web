@@ -1,0 +1,75 @@
+.input__list-item {
+  display: flex;
+  position: relative;
+  width: calc(100% + 1px);
+  min-width: calc(100% + 1px);
+  margin-left: -0.5px;
+  align-items: center;
+  justify-content: center;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 16px;
+  padding-bottom: 13px;
+  border-top: 1px solid #acacac;
+  border-bottom: 1px solid #acacac;
+}
+
+.input__list-item.hidden {
+  display: none;
+}
+
+.input__list-item:last-child {
+  padding-top: 14px;
+  padding-bottom: 14px;
+  border-bottom: 0px;
+}
+
+.input__list-item-trigger {
+  display: inline-block;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.input__list-item span {
+  display: block;
+  width: 100%;
+  min-width: 100%;
+  text-align: center;
+  font-size: 18px;
+  line-height: 21px;
+  color: #acacac;
+}
+
+.input__list-item-close {
+  display: inline-flex;
+  position: absolute;
+  right: 12px;
+  top: calc(50% + 0px);
+  transform: translateY(-50%);
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.input__list-item-close svg {
+  display: block;
+  width: 12px;
+  max-height: 100%;
+  height: auto;
+  margin: auto;
+}
+
+.input__list-item-close svg * {
+  transition: all 0.3s ease;
+}
+
+.input__list-item-close:hover svg * {
+  fill: #0048ab;
+}

@@ -1,0 +1,63 @@
+
+.more {
+  display: inline-block;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  cursor: pointer;
+}
+
+.more span {
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: #969696;
+  transition: all 0.3s ease;
+}
+
+.more:hover span {
+  color: #0048AB;
+}
+
+.more__arrow {
+  display: inline-flex;
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 50%;
+  transform: translate(-50%, 0%);
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.more__arrow::before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  left: 0px;
+  top: -5px;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.active {
+  transform: translate(-50%, 0%) rotate(-180deg);   
+}
+
+.more__arrow svg {
+  display: inline-block;
+  width: 100%;
+  max-height: 100%;
+  margin: auto;
+}
+
+.more__arrow svg * {
+  transition: all 0.3s ease;
+}
+
+.more:hover .more__arrow svg * {
+  fill: #0048AB;
+}

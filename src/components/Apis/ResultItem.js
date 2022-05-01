@@ -1,6 +1,6 @@
 import classes from './ResultItem.module.css';
 
-import AdvicePopup from '../../UI/AdvicePopup';
+import AdvicePopup from '../UI/AdvicePopup';
 
 const ResultItem = ({ label, content, advice }) => {
 
