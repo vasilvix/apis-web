@@ -18,10 +18,11 @@ const ApisForm = (props) => {
     <form onSubmit={submitHandler} className={classes['apis-form']}>
       <Input
         ref={serialNumber}
-        label={"Введите серийный номер"}
+        type={'number'}
+        label={'Введите серийный номер'}
         suggestions={props.suggestions}
         advice={{
-          text: "Серийный номер здесь:",
+          text: 'Серийный номер здесь:',
           image: serialNumberImage
         }}
       />
