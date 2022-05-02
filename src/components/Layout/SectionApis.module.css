@@ -3,19 +3,3 @@
   position: relative;
   overflow: hidden;
 }
-
-.apis {
-  display: block;
-  width: 100%;
-  background: #fff;
-  padding: 40px;
-  padding-top: 71px;
-  padding-bottom: 102px;
-  border-radius: 20px;
-}
-
-.apis h1 {
-  display: block;
-  width: 100%;
-  text-align: center;
-}
