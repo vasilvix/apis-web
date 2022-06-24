@@ -4,8 +4,8 @@ import ApisForm from "./ApisForm";
 import ApisResult from "./ApisResult";
 import Checkbox from '../UI/Checkbox';
 import classes from './Apis.module.css';
+import LoadingModal from '../UI/LoadingModal';
 
-const dummyResponse = { "result": "0", "message": "查询成功", "data": [{ "Codetype": "CMR", "ConTime": "/Date(1651264737016+0300)/", "IsExist": true, "MobileRelatedRefID": "", "RovBytes": 782.414063, "SendBytes": 58538.11, "ServerCurrentNum": 10, "ServerTotalNum": 11, "StID": "951034", "StStaus": 0, "StType": 0, "TcpIPName": "193.124.131.10" }] };
 const dummySnSuggestions = ['328309', '322323'];
 
 const getMsJsonDate = (date) => {
@@ -14,61 +14,73 @@ const getMsJsonDate = (date) => {
   return parseInt(m[0], 10);
 }
 
+const parseApisResponse = (apisResponse) => {
+
+  const result = {};
+
+  if (apisResponse.data[0].IsExist) {
+    const {
+      StType,
+      ConTime,
+      StStaus,
+      MobileRelatedRefID,
+      RovBytes,
+      SendBytes,
+      Codetype,
+    } = apisResponse.data[0];
+
+    const isBase = StType === 0;
+    const connectionDate = new Date(getMsJsonDate(ConTime));
+
+    result.isDelay = StStaus === 2;
+    result.connectionQuality = !result.isDelay ? 'Хорошее' : 'Задержка передачи данных';
+    result.mode = isBase ? 'База' : `Ровер (подключен к базе ${MobileRelatedRefID})`
+    result.connectionDateTime = connectionDate.toLocaleString('ru-RU');
+    result.received = `${(isBase ? RovBytes : SendBytes).toFixed(2)} кБ`;
+    result.sent = `${(isBase ? SendBytes : RovBytes).toFixed(2)} кБ`;
+    result.correctionFormat = Codetype;
+    result.correctionFormatAdvice = {
+      text: Codetype === 'CMR' 
+      ? 'Только GPS и ГЛОНАСС' 
+      : 'GPS, ГЛОНАСС, Galileo, Beidou',
+    };
+  }
+
+  return result;
+}
+
 const Apis = () => {
   const [checkResult, setCheckResult] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [isCheckSuccess, setIsCheckSuccess] = useState(false);
+  const [isCheckResultShown, setIsCheckResultShown] = useState(false);
   const [isPeriodicUpdateActive, setIsPeriodicUpdateActive] = useState(false);
 
   const periodicUpdateCheckboxHandler = () => {
     setIsPeriodicUpdateActive(!isPeriodicUpdateActive);
+    console.log(isPeriodicUpdateActive)
   }
 
   const apisCheckHandler = async (sn) => {
+    setIsCheckResultShown(false);
+    !isPeriodicUpdateActive && setCheckResult(() => { return {} });
+    !isPeriodicUpdateActive && setIsCheckSuccess(true);
 
-    // const response = await fetch(
-    //   'http://apis.prin.ru:6001/weixin/QueryCorsInfo.ashx?'
-    //   + new URLSearchParams({
-    //     sn: sn,
-    //     t: Math.random()
-    //   })
-    // );
-    // if (response.ok) {
-    //   const json = await response.json();
-    // }
+    setIsLoading(true);
+    const params = new URLSearchParams([['sn', sn]]);
+    const response = await fetch('http://localhost:3001/check/?' + params);
+    setIsLoading(false);
 
-    const json = dummyResponse;
-    const apisData = json.data[0];
+    let result = checkResult;
+    if (response.ok) {
+      const json = await response.json();
+      result = parseApisResponse(json);
+    }
 
-    const isBase = apisData.StType === 0;
-    const connectionDateObject = new Date(getMsJsonDate(apisData.ConTime));
-    const connectionQuality = apisData.StStaus === 0
-      ? 'нет задержки'
-      : 'Задержка передачи данных';
-    const serverStatus = `подключен ${apisData.TcpIPName}`;
-    const mode = isBase
-      ? 'База'
-      : `Ровер (подключен к базе ${apisData.MobileRelatedRefID}`
-    const connectionDateTime = `${connectionDateObject.toLocaleDateString()} ${connectionDateObject.toLocaleTimeString()}`;
-    const received = `${(isBase ? apisData.RovBytes : apisData.SendBytes).toFixed(2)} кБ`;
-    const sent = `${(isBase ? apisData.SendBytes : apisData.RovBytes).toFixed(2)} кБ`;
-    const correctionFormat = apisData.Codetype;
-    const correctionFormatAdvice = {
-      text: apisData.Codetype === 'CMR'
-        ? 'Только GPS и ГЛОНАСС'
-        : 'GPS, ГЛОНАСС, Galileo, Beidou'
-    };
-
-    setCheckResult(() => {
-      return {
-        connectionQuality,
-        serverStatus,
-        mode,
-        connectionDateTime,
-        received,
-        sent,
-        correctionFormat,
-        correctionFormatAdvice,
-      }
-    });
+    result.checkTime = new Date().toLocaleString('ru-RU');
+    setCheckResult(() => result);
+    setIsCheckResultShown(true);
+    setIsCheckSuccess(Object.keys(result).length > 1 && !result.isDelay);
   }
 
   const result = (
@@ -77,12 +89,13 @@ const Apis = () => {
         isActive={isPeriodicUpdateActive}
         onClick={periodicUpdateCheckboxHandler}
       />
-      <ApisResult result={{ ...checkResult }} />
+      <ApisResult isCheckSuccess={isCheckSuccess} result={{ ...checkResult }} />
     </React.Fragment>
   );
 
   return (
     <React.Fragment>
+      {isLoading && <LoadingModal />}
       <div className={classes.apis}>
         <h1>
           Проверка <br />
@@ -92,7 +105,7 @@ const Apis = () => {
           apisCheckHandler={apisCheckHandler}
           suggestions={dummySnSuggestions}
         />
-        {Object.keys(checkResult).length !== 0 && result}
+        {isCheckResultShown && result}
       </div>
     </React.Fragment>
   );

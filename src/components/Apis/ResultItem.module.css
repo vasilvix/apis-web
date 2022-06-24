@@ -34,10 +34,10 @@
   color: #00A98B;
 }
 
-.apis-result_error .result-items__item-content > span {
-  color: #D8336E;
-}
-
 .result-items__item-content .question {
   top: -10px;
+}
+
+.error {
+  color: #D8336E !important;
 }

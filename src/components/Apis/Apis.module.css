@@ -6,6 +6,7 @@
   padding-top: 71px;
   padding-bottom: 102px;
   border-radius: 20px;
+  transition: all 1s;
 }
 
 .apis h1 {

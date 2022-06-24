@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import React from 'react';
 
 import classes from './ApisForm.module.css';
 import serialNumberImage from '../../assets/images/popup-img-min.png';
@@ -7,17 +7,18 @@ import Input from '../UI/Input';
 
 const ApisForm = (props) => {
 
-  const serialNumber = useRef();
+  const serialNumberInput = React.createRef();
   
   const submitHandler = async (event) => {
     event.preventDefault();
-    props.apisCheckHandler('3380912');
+    const sn = serialNumberInput.current.value;
+    props.apisCheckHandler(sn);
   }
 
   return (
     <form onSubmit={submitHandler} className={classes['apis-form']}>
       <Input
-        ref={serialNumber}
+        ref={serialNumberInput}
         type={'number'}
         label={'Введите серийный номер'}
         suggestions={props.suggestions}

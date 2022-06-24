@@ -17,7 +17,7 @@ const Input = React.forwardRef((props, ref) => {
       </div>
       <div className={classes.input}>
         <div className={classes['input__main']}>
-          <input type={props.type} required />
+          <input ref={ref} type={props.type} required />
           <div className={classes['input__main-close']}>
             <InputClose />
           </div>

@@ -1,8 +1,10 @@
 import classes from './ResultItem.module.css';
 
 import AdvicePopup from '../UI/AdvicePopup';
+import React from 'react';
 
-const ResultItem = ({ label, content, advice }) => {
+
+const ResultItem = ({ label, content, advice, isError }) => {
 
   let adviceContent = null;
   if (advice !== undefined) {
@@ -13,7 +15,9 @@ const ResultItem = ({ label, content, advice }) => {
     <div className={classes['result-items__item']}>
       <div className={classes['result-items__item-content']}>
         <b>{`${label}: `}</b>
-        <span>{`${content}`}</span>
+        <span className={isError && classes['error']}>
+          {content}
+        </span>
         {adviceContent}
       </div>
     </div>
