@@ -28,8 +28,8 @@ const Input = React.forwardRef((props, ref) => {
     if ((inputRegexValidator.test(currentInput) && currentInput.length <= 7) ||
       currentInput === '') {
       setInputValue(currentInput);
-      setIsHintsActive(false);
     }
+    setIsHintsActive(currentInput === '' && props.hints.length > 0);
   }
 
   const onClearInputHandler = () => {
@@ -38,7 +38,7 @@ const Input = React.forwardRef((props, ref) => {
   }
 
   const showHints = () => {
-    if (inputValue === '') {
+    if (inputValue === '' && props.hints.length > 0) {
       setIsHintsActive(true);
     }
   }
@@ -50,7 +50,7 @@ const Input = React.forwardRef((props, ref) => {
 
   const onHintDelete = (value) => {
     props.onHintDelete(value);
-    if (props.hints.length === 0) {
+    if (props.hints.length === 1) {
       setIsHintsActive(false);
     }
   }

@@ -6,7 +6,6 @@ import serialNumberImage from '../../assets/images/popup-img-min.png';
 import Input from '../UI/Input';
 
 const ApisForm = (props) => {
-  // const [isFormValid, setIsFormValid] = useState(false);
   const [snHints, setSnHints] = useState([]);
 
   useEffect(() => {
@@ -18,7 +17,6 @@ const ApisForm = (props) => {
   const snInput = React.createRef();
 
   const onSnHintAddHandler = (sn) => {
-    console.log('Add!')
     if (!snHints.includes(sn)) {
       const updatedSnHints = [...snHints, sn];
       setSnHints(() => updatedSnHints);
@@ -27,7 +25,6 @@ const ApisForm = (props) => {
   }
 
   const onSnHintDeleteHandler = (sn) => {
-    console.log('Del')
     const filteredSnHints = snHints.filter(h => h !== sn)
     setSnHints(() => filteredSnHints);
     localStorage.serialNumbers = JSON.stringify(filteredSnHints);
