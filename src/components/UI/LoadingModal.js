@@ -16,8 +16,8 @@ const ModalOverlay = () => {
       <div className={classes['loading-icon']}>
       </div>
       <h4>
-        Несколько секунд. <br />
-        Получаем ответ от сервера.
+        Пожалуйста, подождите<br />
+        Получаем ответ от сервера
       </h4>
     </div>
   );

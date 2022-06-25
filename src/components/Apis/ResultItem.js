@@ -14,8 +14,8 @@ const ResultItem = ({ label, content, advice, isError }) => {
   return (
     <div className={classes['result-items__item']}>
       <div className={classes['result-items__item-content']}>
-        <b>{`${label}: `}</b>
-        <span className={isError && classes['error']}>
+        <b>{label}</b>
+        <span className={isError ? classes['error'] : undefined}>
           {content}
         </span>
         {adviceContent}

@@ -12,6 +12,7 @@
   padding-bottom: 13px;
   border-top: 1px solid #acacac;
   border-bottom: 1px solid #acacac;
+  cursor: pointer;
 }
 
 .input__list-item.hidden {
@@ -22,18 +23,6 @@
   padding-top: 14px;
   padding-bottom: 14px;
   border-bottom: 0px;
-}
-
-.input__list-item-trigger {
-  display: inline-block;
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  opacity: 0;
-  cursor: pointer;
 }
 
 .input__list-item span {
@@ -56,6 +45,11 @@
   height: 25px;
   cursor: pointer;
   z-index: 2;
+  border: 0px;
+}
+
+.input__list-item-close:hover {
+  background: transparent;
 }
 
 .input__list-item-close svg {

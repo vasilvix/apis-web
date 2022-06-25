@@ -6,8 +6,6 @@ import Checkbox from '../UI/Checkbox';
 import classes from './Apis.module.css';
 import LoadingModal from '../UI/LoadingModal';
 
-const dummySnSuggestions = ['328309', '322323'];
-
 const getMsJsonDate = (date) => {
   const re = /-?\d+/;
   const m = re.exec(date);
@@ -15,9 +13,7 @@ const getMsJsonDate = (date) => {
 }
 
 const parseApisResponse = (apisResponse) => {
-
   const result = {};
-
   if (apisResponse.data[0].IsExist) {
     const {
       StType,
@@ -28,21 +24,23 @@ const parseApisResponse = (apisResponse) => {
       SendBytes,
       Codetype,
     } = apisResponse.data[0];
-
     const isBase = StType === 0;
     const connectionDate = new Date(getMsJsonDate(ConTime));
-
     result.isDelay = StStaus === 2;
-    result.connectionQuality = !result.isDelay ? 'Хорошее' : 'Задержка передачи данных';
-    result.mode = isBase ? 'База' : `Ровер (подключен к базе ${MobileRelatedRefID})`
+    result.connectionQuality = !result.isDelay ?
+      'Стабильное' :
+      'Нестабильное';
+    result.mode = isBase ?
+      'База' :
+      `Ровер (подключен к базе ${MobileRelatedRefID})`
     result.connectionDateTime = connectionDate.toLocaleString('ru-RU');
     result.received = `${(isBase ? RovBytes : SendBytes).toFixed(2)} кБ`;
     result.sent = `${(isBase ? SendBytes : RovBytes).toFixed(2)} кБ`;
     result.correctionFormat = Codetype;
     result.correctionFormatAdvice = {
-      text: Codetype === 'CMR' 
-      ? 'Только GPS и ГЛОНАСС' 
-      : 'GPS, ГЛОНАСС, Galileo, Beidou',
+      text: Codetype === 'CMR' ?
+        'Только GPS и ГЛОНАСС' :
+        'GPS, ГЛОНАСС, Galileo, Beidou',
     };
   }
 
@@ -51,7 +49,9 @@ const parseApisResponse = (apisResponse) => {
 
 const Apis = () => {
   const [checkResult, setCheckResult] = useState({});
+
   const [isLoading, setIsLoading] = useState(false);
+  const [isCheckResultHasError, setIsCheckResultHasError] = useState(false);
   const [isCheckSuccess, setIsCheckSuccess] = useState(false);
   const [isCheckResultShown, setIsCheckResultShown] = useState(false);
   const [isPeriodicUpdateActive, setIsPeriodicUpdateActive] = useState(false);
@@ -63,14 +63,10 @@ const Apis = () => {
 
   const apisCheckHandler = async (sn) => {
     setIsCheckResultShown(false);
-    !isPeriodicUpdateActive && setCheckResult(() => { return {} });
-    !isPeriodicUpdateActive && setIsCheckSuccess(true);
-
     setIsLoading(true);
     const params = new URLSearchParams([['sn', sn]]);
     const response = await fetch('http://localhost:3001/check/?' + params);
     setIsLoading(false);
-
     let result = checkResult;
     if (response.ok) {
       const json = await response.json();
@@ -79,8 +75,9 @@ const Apis = () => {
 
     result.checkTime = new Date().toLocaleString('ru-RU');
     setCheckResult(() => result);
+    setIsCheckSuccess(Object.keys(result).length > 1);
+    setIsCheckResultHasError(Object.keys(result).length > 1 && !result.isDelay);
     setIsCheckResultShown(true);
-    setIsCheckSuccess(Object.keys(result).length > 1 && !result.isDelay);
   }
 
   const result = (
@@ -89,7 +86,7 @@ const Apis = () => {
         isActive={isPeriodicUpdateActive}
         onClick={periodicUpdateCheckboxHandler}
       />
-      <ApisResult isCheckSuccess={isCheckSuccess} result={{ ...checkResult }} />
+      <ApisResult isCheckResultHasError={isCheckResultHasError} result={{ ...checkResult }} />
     </React.Fragment>
   );
 
@@ -103,7 +100,7 @@ const Apis = () => {
         </h1>
         <ApisForm
           apisCheckHandler={apisCheckHandler}
-          suggestions={dummySnSuggestions}
+          isCheckSuccess={isCheckSuccess}
         />
         {isCheckResultShown && result}
       </div>

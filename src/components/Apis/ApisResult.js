@@ -11,7 +11,7 @@ const ApisResult = (props) => {
 
   const [isShowMore, setIsShowMore] = useState(false);
 
-  const isError = !props.isCheckSuccess;
+  const isError = !props.isCheckResultHasError;
   const isDelay = props.result.isDelay;
 
   const showMoreHandler = () => {
@@ -35,13 +35,12 @@ const ApisResult = (props) => {
       <div className={`${classes['apis-result']} ${classes['apis-result_error']}`}>
         <div className={classes['result-items']}>
           <ResultItem
-            label={'Время проверки'}
+            label={'Время проверки: '}
             content={props.result.checkTime}
             isError={isError}
           />
           <ResultItem
-            label={'Результат проверки'}
-            content={'Ошибка'}
+            content={'Приёмник не подключен к серверу'}
             isError={isError}
             advice={advice}
           />
@@ -53,22 +52,22 @@ const ApisResult = (props) => {
   const mainInfo = (
     <div className={classes['result-items']}>
       <ResultItem
-        label={'Время проверки'}
+        label={'Время проверки: '}
         content={props.result.checkTime}
         isError={isError}
       />
       <ResultItem
-        label={'Качество подключения'}
+        label={'Качество подключения: '}
         content={props.result.connectionQuality}
         isError={isError}
       />
       <ResultItem
-        label={'Режим'}
+        label={'Режим: '}
         content={props.result.mode}
         isError={isError}
       />
       <ResultItem
-        label={'Формат поправок'}
+        label={'Формат поправок: '}
         content={props.result.correctionFormat}
         advice={props.result.correctionFormatAdvice}
         isError={isError}
@@ -79,17 +78,17 @@ const ApisResult = (props) => {
   const moreInfo = (
     <div className={classes['result-items']}>
       <ResultItem
-        label={'Подключен к серверу'}
+        label={'Подключен к серверу: '}
         content={props.result.connectionDateTime}
         isError={isError}
       />
       <ResultItem
-        label={'Получено'}
+        label={'Получено: '}
         content={props.result.received}
         isError={isError}
       />
       <ResultItem
-        label={'Отправлено'}
+        label={'Отправлено: '}
         content={props.result.sent}
         isError={isError}
       />

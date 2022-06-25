@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import classes from './ApisForm.module.css';
 import serialNumberImage from '../../assets/images/popup-img-min.png';
@@ -6,22 +6,47 @@ import serialNumberImage from '../../assets/images/popup-img-min.png';
 import Input from '../UI/Input';
 
 const ApisForm = (props) => {
+  // const [isFormValid, setIsFormValid] = useState(false);
+  const [snHints, setSnHints] = useState([]);
 
-  const serialNumberInput = React.createRef();
-  
+  useEffect(() => {
+    if (localStorage.serialNumbers) {
+      setSnHints(JSON.parse(localStorage.serialNumbers));
+    }
+  }, []);
+
+  const snInput = React.createRef();
+
+  const onSnHintAddHandler = (sn) => {
+    console.log('Add!')
+    if (!snHints.includes(sn)) {
+      const updatedSnHints = [...snHints, sn];
+      setSnHints(() => updatedSnHints);
+      localStorage.serialNumbers = JSON.stringify(updatedSnHints);
+    }
+  }
+
+  const onSnHintDeleteHandler = (sn) => {
+    console.log('Del')
+    const filteredSnHints = snHints.filter(h => h !== sn)
+    setSnHints(() => filteredSnHints);
+    localStorage.serialNumbers = JSON.stringify(filteredSnHints);
+  }
+
   const submitHandler = async (event) => {
     event.preventDefault();
-    const sn = serialNumberInput.current.value;
+    const sn = snInput.current.value;
     props.apisCheckHandler(sn);
+    onSnHintAddHandler(sn)
   }
 
   return (
-    <form onSubmit={submitHandler} className={classes['apis-form']}>
+    <form onSubmit={submitHandler} className={classes['apis-form']} id='apis-check-form'>
       <Input
-        ref={serialNumberInput}
-        type={'number'}
+        ref={snInput}
         label={'Введите серийный номер'}
-        suggestions={props.suggestions}
+        hints={snHints}
+        onHintDelete={onSnHintDeleteHandler}
         advice={{
           text: 'Серийный номер здесь:',
           image: serialNumberImage
