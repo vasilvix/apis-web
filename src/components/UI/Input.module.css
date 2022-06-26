@@ -69,6 +69,11 @@
   border-bottom-right-radius: 0px;
 }
 
+.input.disabled input {
+  color: #acacac;
+  cursor: not-allowed;
+}
+
 .input input::placeholder {
   font: inherit;
   font-size: inherit;

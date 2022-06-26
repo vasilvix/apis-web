@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import MoreArrow from '../UI/MoreArrow';
 import classes from './ApisResult.module.css';
@@ -8,15 +8,8 @@ import ResultItem from './ResultItem';
 const helpLink = 'https://prin.ru';
 
 const ApisResult = (props) => {
-
-  const [isShowMore, setIsShowMore] = useState(false);
-
   const isError = !props.isCheckResultHasError;
   const isDelay = props.result.isDelay;
-
-  const showMoreHandler = () => {
-    setIsShowMore(!isShowMore);
-  }
 
   if (isError && !isDelay) {
     const advice = {};
@@ -98,8 +91,8 @@ const ApisResult = (props) => {
   return (
     <div className={classes['apis-result']}>
       {mainInfo}
-      <MoreArrow isActive={isShowMore} showMore={showMoreHandler} />
-      {isShowMore && moreInfo}
+      <MoreArrow isActive={props.isShowMore} showMore={props.onShowMore} />
+      {props.isShowMore && moreInfo}
     </div>
   );
 }

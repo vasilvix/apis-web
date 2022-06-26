@@ -35,6 +35,10 @@
   color: #acacac;
 }
 
+.input__list-item:hover span {
+  font-weight: bold;
+}
+
 .input__list-item-close {
   display: inline-flex;
   position: absolute;

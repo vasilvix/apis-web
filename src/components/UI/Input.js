@@ -63,7 +63,13 @@ const Input = React.forwardRef((props, ref) => {
         </span>
         {props.advice && <AdvicePopup image={props.advice.image} text={props.advice.text} />}
       </div>
-      <div className={`${classes['input']} ${isHintsActive ? classes['active'] : undefined}`}>
+      <div
+        className={
+          `${classes['input']
+          } ${isHintsActive ? classes['active'] : undefined
+          } ${props.isDisabled ? classes['disabled'] : undefined}`
+        }
+      >
         <div className={classes['input__main']}>
           <input
             ref={ref}
@@ -72,8 +78,13 @@ const Input = React.forwardRef((props, ref) => {
             onClick={showHints}
             type={props.type}
             required
+            disabled={props.isDisabled}
           />
-          {inputValue && <ClearInput onClick={onClearInputHandler} />}
+          {
+            inputValue &&
+            !props.isDisabled &&
+            <ClearInput onClick={onClearInputHandler} />
+          }
         </div>
         {
           props.hints.length > 0 &&

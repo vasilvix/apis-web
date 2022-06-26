@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 import ApisForm from "./ApisForm";
 import ApisResult from "./ApisResult";
@@ -49,16 +49,34 @@ const parseApisResponse = (apisResponse) => {
 
 const Apis = () => {
   const [checkResult, setCheckResult] = useState({});
-
   const [isLoading, setIsLoading] = useState(false);
   const [isCheckResultHasError, setIsCheckResultHasError] = useState(false);
+  const [isResultShowMore, setResultShowMore] = useState(false);
   const [isCheckSuccess, setIsCheckSuccess] = useState(false);
   const [isCheckResultShown, setIsCheckResultShown] = useState(false);
-  const [isPeriodicUpdateActive, setIsPeriodicUpdateActive] = useState(false);
+  const [isAutoUpdateEnabled, setIsAutoUpdateActive] = useState(false);
+
+  let timerId = useRef();
+  const serialNumber = useRef();
+
+  useEffect(() => {
+    if (isAutoUpdateEnabled) {
+      timerId.current = setInterval(() => {
+        apisCheckHandler(serialNumber.current.value);
+      }, 5000)
+    } else {
+      clearInterval(timerId.current)
+    }
+  }, [isAutoUpdateEnabled])
 
   const periodicUpdateCheckboxHandler = () => {
-    setIsPeriodicUpdateActive(!isPeriodicUpdateActive);
-    console.log(isPeriodicUpdateActive)
+    const updatedState = !isAutoUpdateEnabled;
+    setIsAutoUpdateActive(updatedState);
+    console.log(updatedState)
+  }
+
+  const resultShowMoreHandler = () => {
+    setResultShowMore((isResultShowMore) => !isResultShowMore)
   }
 
   const apisCheckHandler = async (sn) => {
@@ -83,10 +101,15 @@ const Apis = () => {
   const result = (
     <React.Fragment>
       <Checkbox
-        isActive={isPeriodicUpdateActive}
+        isActive={isAutoUpdateEnabled}
         onClick={periodicUpdateCheckboxHandler}
       />
-      <ApisResult isCheckResultHasError={isCheckResultHasError} result={{ ...checkResult }} />
+      <ApisResult
+        isCheckResultHasError={isCheckResultHasError}
+        isShowMore={isResultShowMore}
+        onShowMore={resultShowMoreHandler}
+        result={{ ...checkResult }}
+      />
     </React.Fragment>
   );
 
@@ -99,8 +122,10 @@ const Apis = () => {
           статуса APIS
         </h1>
         <ApisForm
-          apisCheckHandler={apisCheckHandler}
+          ref={serialNumber}
+          onSubmit={apisCheckHandler}
           isCheckSuccess={isCheckSuccess}
+          isDisabled={isAutoUpdateEnabled}
         />
         {isCheckResultShown && result}
       </div>

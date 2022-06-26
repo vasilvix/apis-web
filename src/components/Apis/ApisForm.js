@@ -5,7 +5,7 @@ import serialNumberImage from '../../assets/images/popup-img-min.png';
 
 import Input from '../UI/Input';
 
-const ApisForm = (props) => {
+const ApisForm = React.forwardRef((props, ref) => {
   const [snHints, setSnHints] = useState([]);
 
   useEffect(() => {
@@ -13,8 +13,6 @@ const ApisForm = (props) => {
       setSnHints(JSON.parse(localStorage.serialNumbers));
     }
   }, []);
-
-  const snInput = React.createRef();
 
   const onSnHintAddHandler = (sn) => {
     if (!snHints.includes(sn)) {
@@ -32,15 +30,19 @@ const ApisForm = (props) => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    const sn = snInput.current.value;
-    props.apisCheckHandler(sn);
+    const sn = ref.current.value;
+    props.onSubmit(sn);
     onSnHintAddHandler(sn)
   }
 
   return (
-    <form onSubmit={submitHandler} className={classes['apis-form']} id='apis-check-form'>
+    <form
+      onSubmit={submitHandler}
+      className={classes['apis-form']}
+      id='apis-check-form'
+    >
       <Input
-        ref={snInput}
+        ref={ref}
         label={'Введите серийный номер'}
         hints={snHints}
         onHintDelete={onSnHintDeleteHandler}
@@ -48,10 +50,11 @@ const ApisForm = (props) => {
           text: 'Серийный номер здесь:',
           image: serialNumberImage
         }}
+        isDisabled={props.isDisabled}
       />
-      <button className={classes.btn}>Проверить</button>
+      {!props.isDisabled && <button className={classes.btn}>Проверить</button>}
     </form>
   );
-}
+});
 
 export default ApisForm;
