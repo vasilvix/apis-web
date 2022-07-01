@@ -68,3 +68,43 @@
 .contacts__item.contacts__item_tg span {
   padding-left: 2px;
 }
+
+@media (max-width: 575px) {
+  .section-contacts {
+    padding-top: 33px;
+    padding-bottom: 108px;
+  }
+
+  .contacts {
+    max-width: 232px;
+  }
+
+  .contacts__item {
+    min-height: 77px;
+    margin-top: 13px;
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 9px;
+  }
+
+  .contacts__item.contacts__item_tg {
+    padding-top: 9px;
+    min-height: 69px;
+  }
+
+  .contacts__item.contacts__item_tg:before {
+    left: 19.5px;
+    top: calc(50% + 0px);
+    width: 29px;
+    height: 25px;
+  }
+
+  .contacts__item span {
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  .contacts__item.contacts__item_tg span {
+    padding-left: 0px;
+  }
+}

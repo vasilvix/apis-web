@@ -3,3 +3,9 @@
   position: relative;
   overflow: hidden;
 }
+
+@media (max-width: 575px) {
+  .section-apis {
+    padding-top: 97px;
+  }
+}

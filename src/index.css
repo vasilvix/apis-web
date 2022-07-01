@@ -127,27 +127,6 @@ input::-moz-placeholder {
   padding-left: 0px !important;
 }
 
-@media (max-width: 575px) {
-  body {
-    background: linear-gradient(117.42deg, #004597 36.48%, #0083fc 67.74%);
-  }
-
-  span {
-    font-size: 15px;
-    line-height: 18px;
-  }
-
-  h1 {
-    font-size: 25px;
-    line-height: 34px;
-  }
-
-  h4 {
-    font-size: 14px;
-    line-height: 17px;
-  }
-}
-
 header {
   display: flex;
   position: absolute;
@@ -158,18 +137,8 @@ header {
 }
 
 @media (max-width: 575px) {
-  header {
-    padding-top: 35px;
-  }
-}
-
-@media (max-width: 575px) {
   body {
     background: linear-gradient(117.42deg, #004597 36.48%, #0083fc 67.74%);
-  }
-
-  .container {
-    max-width: calc(100% - 22px);
   }
 
   span {

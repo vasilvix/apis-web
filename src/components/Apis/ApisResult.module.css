@@ -17,3 +17,22 @@
 .result-items:first-child {
   margin-top: 23px;
 }
+
+@media (max-width: 575px) {
+  .apis-result {
+    margin-bottom: 0px;
+    padding-bottom: 20px;
+  }
+
+  .result-items {
+    margin-top: 45px;
+  }
+
+  .result-items.result-items_add {
+    margin-bottom: 14px;
+  }
+
+  .result-items:first-child {
+    margin-top: 25px;
+  }
+}

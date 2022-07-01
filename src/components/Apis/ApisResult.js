@@ -5,7 +5,7 @@ import classes from './ApisResult.module.css';
 
 import ResultItem from './ResultItem';
 
-const helpLink = 'https://prin.ru';
+const manualNoFixFileName = 'Что делать, если нет фиксированного решения при работе по технологии APIS.pdf';
 
 const ApisResult = (props) => {
   const isError = !props.isCheckResultHasError;
@@ -18,7 +18,7 @@ const ApisResult = (props) => {
       <React.Fragment>
         Рекомендуем почитать статью
         <br />
-        <a href={helpLink}>
+        <a href={`download/${encodeURI(manualNoFixFileName)}`} download>
           “Подключение базы и ровера по APIS”
         </a>
       </React.Fragment>

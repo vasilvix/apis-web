@@ -61,3 +61,9 @@
 .more:hover .more__arrow svg * {
   fill: #0048AB;
 }
+
+@media (max-width: 575px) {
+  .more {
+    margin-top: 45px;
+  }
+}

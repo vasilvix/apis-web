@@ -73,3 +73,23 @@
   border-right: 4px solid #fff;
   animation: 2s linear infinite 0s loading;
 }
+
+@media (max-width: 575px) {
+  .modal {
+    width: 268px;
+    padding: 28px;
+    padding-bottom: 30px;
+    padding-top: 31px;
+  }
+
+  .loading-icon {
+    width: 45px;
+    height: 45px;
+  }
+
+  .modal h4 {
+    font-size: 14px;
+    line-height: 16.5px;
+    margin-top: 14px;
+  }
+}

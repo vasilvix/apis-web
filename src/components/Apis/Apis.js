@@ -70,9 +70,9 @@ const Apis = () => {
   }, [isAutoUpdateEnabled])
 
   const periodicUpdateCheckboxHandler = () => {
-    const updatedState = !isAutoUpdateEnabled;
-    setIsAutoUpdateActive(updatedState);
-    console.log(updatedState)
+    if (serialNumber.current.value !== '') {
+      setIsAutoUpdateActive(!isAutoUpdateEnabled);
+    }
   }
 
   const resultShowMoreHandler = () => {

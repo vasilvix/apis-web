@@ -53,3 +53,16 @@
 .btn.focus {
   outline: none;
 }
+
+@media (max-width: 575px) {
+  .btn {
+    height: 61px;
+    line-height: 61px;
+    margin-top: 15px;
+    font-size: 20px;
+  }
+
+  .apis-form {
+    margin-top: 28px;
+  }
+}

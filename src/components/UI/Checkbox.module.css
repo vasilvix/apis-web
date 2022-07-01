@@ -1,3 +1,9 @@
+.checkbox-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .checkbox-wrap {
   display: inline-flex;
   align-items: center;
@@ -72,4 +78,73 @@
 
 .checkbox-btn.active::before {
   opacity: 1;
+}
+
+@media (max-width: 575px) {
+  .checkbox-wrap {
+    display: block;
+    margin-top: 35px;
+  }
+
+  .checkbox-wrap span {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    line-height: 18px;
+  }
+
+  .checkbox-wrap span span:nth-child(1) {
+    display: none;
+  }
+
+  .checkbox-wrap span span:nth-child(2) {
+    display: inline;
+  }
+
+  .checkbox-btn {
+    display: inline-flex;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 83px;
+    height: 38px;
+    padding-top: 1px;
+  }
+
+  .checkbox-btn.active {
+    background: #00a98b;
+    border-color: #00a98b;
+  }
+
+  .checkbox-btn::before {
+    display: none;
+  }
+
+  .checkbox-btn span {
+    display: block;
+    width: 100%;
+    min-width: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+    width: auto;
+    opacity: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .checkbox-btn.active span {
+    color: #fff;
+  }
+
+  .checkbox-btn span.active {
+    opacity: 1;
+    position: relative;
+    pointer-events: auto;
+    transition: opacity 0.3s ease;
+  }
 }

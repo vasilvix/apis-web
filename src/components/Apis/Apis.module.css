@@ -14,3 +14,11 @@
   width: 100%;
   text-align: center;
 }
+
+@media (max-width: 575px) {
+  .apis {
+    padding: 24px;
+    padding-top: 31px;
+    padding-bottom: 56px;
+  }
+}

@@ -72,6 +72,7 @@
 .input.disabled input {
   color: #acacac;
   cursor: not-allowed;
+  user-select: none;
 }
 
 .input input::placeholder {
@@ -111,4 +112,55 @@
 
 .input__main-close:hover svg * {
   fill: #0048ab;
+}
+
+@media (max-width: 575px) {
+  .input {
+    margin-top: 16px;
+  }
+
+  .input input {
+    height: 60px;
+    line-height: 60px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 18px;
+  }
+
+  .input__main::before {
+    display: none;
+  }
+
+  .input__main-close {
+    display: none;
+  }
+
+  .input__list {
+    top: calc(100% - 2px);
+  }
+
+  .input__list-item {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 11px;
+    padding-bottom: 9px;
+  }
+
+  .input__list-item:last-child {
+    padding-top: 10px;
+    padding-bottom: 9px;
+  }
+
+  .input__list-item span {
+    font-size: 15px;
+    line-height: 18px;
+  }
+
+  .input__list-item-close {
+    right: 6px;
+  }
+
+  .input__list-item-close svg {
+    width: 9px;
+  }
 }
